@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "FinPro_OOPKelompok10.sln"
+    "dotnet.defaultSolution": "FinPro_OOP_Kelompok10.sln"
 }
