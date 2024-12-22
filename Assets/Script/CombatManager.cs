@@ -38,16 +38,16 @@ public class CombatManager : MonoBehaviour
             // Increment the wave counter
             waveCounter++;
 
+            // Wait for the duration of the current wave
+            yield return new WaitForSeconds(currentWave.waveDuration);
+
+            currentWave.StopWave();
+
             // Spawn an ally every 2 waves
             if (waveCounter % 2 == 0)
             {
                 SpawnAlly();
             }
-
-            // Wait for the duration of the current wave
-            yield return new WaitForSeconds(currentWave.waveDuration);
-
-            currentWave.StopWave();
 
             // Wait for the interval between waves
             yield return new WaitForSeconds(timeBetweenWaves);

@@ -17,7 +17,7 @@ public class Bomber : Enemy
 
         Vector3 ePos = Camera.main.WorldToViewportPoint(new(transform.position.x, transform.position.y, transform.position.z));
 
-        if (ePos.x < -0.05f && transform.rotation.y == 180)
+        if (ePos.x < -0.05f && transform.rotation.y == -180)
         {
             Destroy(gameObject);
         }

@@ -21,7 +21,7 @@ public class EnemyBullet : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = bulletSpeed * Time.deltaTime * transform.up;
+        rb.velocity = bulletSpeed * Time.deltaTime * (-transform.up);
     }
 
     private void Update()

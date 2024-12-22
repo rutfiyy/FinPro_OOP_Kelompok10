@@ -33,14 +33,17 @@ public class HealthComponent : MonoBehaviour
         health = Mathf.Clamp(health, 0, maxHealth);
         if (health <= 0)
         {
-            if (audioSource != null)
+            if (audioSource != null && deathSound != null)
                 audioSource.PlayOneShot(deathSound);
             Destroy(gameObject);
         }else if(invincibilityComponent != null)
         {
+            if (audioSource != null && hitSound != null)
+                audioSource.PlayOneShot(hitSound);
             invincibilityComponent.TriggerInvincibility();
         }else if (audioSource != null){
-            audioSource.PlayOneShot(hitSound);
+            if (audioSource != null && hitSound != null)
+                audioSource.PlayOneShot(hitSound);
         }
     }
 

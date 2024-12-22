@@ -30,18 +30,18 @@ public class InvincibilityComponent : MonoBehaviour
 
     private IEnumerator InvincibilityCoroutine()
     {
-        //isInvincible = true;
+        isInvincible = true;
 
         for (int i = 0; i < blinkingCount; i++)
         {
-            spriteRenderer.material = blinkMaterial;
+            //spriteRenderer.material = blinkMaterial;
             yield return new WaitForSeconds(blinkInterval / 2);
-            spriteRenderer.material = originalMaterial;
+            //spriteRenderer.material = originalMaterial;
             yield return new WaitForSeconds(blinkInterval / 2);
         }
 
         spriteRenderer.material = originalMaterial;
 
-        //isInvincible = false;
+        isInvincible = false;
     }
 }
