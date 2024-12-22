@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="Background" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Scenes/FinalScore/3.png?fileID=2800000&amp;guid=90da14ab9011eae40b32e4287c254a63&amp;type=3#3&quot;); width: auto; height: auto;">
+        <ui:Label tabindex="-1" text="GAME OVER" parse-escape-sequences="true" display-tooltip-when-elided="true" name="GameOver" style="height: 549px; color: rgb(255, 0, 0); font-size: 160px; -unity-font-style: bold; -unity-font: initial; -unity-text-align: middle-center; width: 1175px; align-self: auto; justify-content: flex-end;">
+            <ui:Button text="Back to Main Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ToMainMenu" style="-unity-text-align: lower-center; width: 464px; height: 76px; font-size: 40px; color: rgb(55, 52, 52); -unity-font-style: bold-and-italic; left: 30%; top: auto; bottom: 10%;" />
+        </ui:Label>
+        <ui:Label tabindex="-1" text="Time Passed :" parse-escape-sequences="true" display-tooltip-when-elided="true" name="FinalTime" style="height: 394px; font-size: 50px; -unity-font-style: bold; -unity-text-align: upper-left; width: 744px;" />
+    </ui:VisualElement>
+</ui:UXML>
