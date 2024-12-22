@@ -13,9 +13,18 @@ public class Nuke : MonoBehaviour
     public CombatManager combatManager;
     public GameObject enemyBulletPool;
 
+    private void Awake()
+    {
+        combatManager = FindObjectOfType<CombatManager>();
+        enemyBulletPool = GameObject.Find("EnemyBulletPool");
+        GameObject audioSourceObject = GameObject.Find("AudioSource");
+        if (audioSourceObject != null)
+            audioSource = audioSourceObject.GetComponent<AudioSource>();
+    }
+
     private void Start()
     {
-        nukeAmount = maxNuke;
+        nukeAmount = 1;
     }
 
     private void FixedUpdate()
@@ -25,10 +34,11 @@ public class Nuke : MonoBehaviour
         if (timer >= cooldown && Input.GetMouseButtonDown(1) && nukeAmount > 0) // Right mouse button
         {
             timer = 0;
-            audioSource.PlayOneShot(nukeSound);
+            if (audioSource != null && nukeSound != null)
+                audioSource.PlayOneShot(nukeSound);
             ActivateNuke();
             nukeAmount--;
-        }else if (Input.GetMouseButtonDown(1))
+        }else if (Input.GetMouseButtonDown(1) && audioSource != null && noNukeSound != null)
         {
             audioSource.PlayOneShot(noNukeSound);
         }

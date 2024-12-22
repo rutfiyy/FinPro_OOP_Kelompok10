@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="Container" style="flex-grow: 1; flex-direction: column;">
+        <ui:Label tabindex="-1" text="Timer :" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Timer" style="font-size: 80px; color: rgb(255, 255, 255);" />
+        <ui:Label tabindex="-1" text="Nuke :" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Nuke" style="font-size: 80px; color: rgb(255, 255, 255);" />
+    </ui:VisualElement>
+</ui:UXML>

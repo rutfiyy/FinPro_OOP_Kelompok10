@@ -1,0 +1,28 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Scenes/ChooseWeapon/MinusButton.uss?fileID=7433441132597879392&amp;guid=5373955cb43df7143a14efe6ceaf9efb&amp;type=3#MinusButton" />
+    <ui:VisualElement name="Background" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Scenes/ChooseWeapon/2.png?fileID=21300000&amp;guid=7ba4c70f1a1d87e40a4761747047668f&amp;type=3#2&quot;); flex-direction: row; flex-wrap: wrap; align-self: stretch; width: auto; height: auto; -unity-background-scale-mode: stretch-to-fill; position: relative;">
+        <ui:VisualElement name="WeaponContainer" style="flex-grow: 1; width: 675px; height: 709px; flex-direction: column; max-width: initial; max-height: initial;">
+            <ui:VisualElement name="UpperSlot" style="flex-grow: 1; flex-direction: row; position: relative; height: -82px; width: 1078px; max-width: none; top: 71px;">
+                <ui:Button text="-" parse-escape-sequences="true" display-tooltip-when-elided="true" name="1Minus" class="button" style="height: 44px; left: 7%; top: 71%; right: auto; width: 79px; position: relative; font-size: 60px;" />
+                <ui:Button text="+" parse-escape-sequences="true" display-tooltip-when-elided="true" name="1Plus" class="button" style="height: 44px; left: 7%; top: 71%; right: auto; width: 83px; font-size: 60px; -unity-text-align: middle-left;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="LowerSlot" style="flex-grow: 1; flex-direction: row; height: auto; width: auto; top: 140px;">
+                <ui:Button text="-" parse-escape-sequences="true" display-tooltip-when-elided="true" name="2Minus" class="button" style="height: 44px; left: 9%; top: 52%; right: auto; width: 83px; font-size: 60px;" />
+                <ui:Button text="+" parse-escape-sequences="true" display-tooltip-when-elided="true" name="2Plus" class="button" style="height: 44px; left: 9%; top: 52%; right: auto; width: 83px; font-size: 60px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="InfoContainer" style="flex-grow: 1; height: 677px; align-items: center;">
+            <ui:VisualElement name="Point" style="flex-grow: 1; height: 130px;">
+                <ui:Label tabindex="-1" text="Point Left:" parse-escape-sequences="true" display-tooltip-when-elided="true" view-data-key="oint" tooltip="eft" name="PointLeft" style="height: 107px; font-size: 30px; color: rgb(255, 255, 255); -unity-text-align: upper-center;" />
+                <ui:Label tabindex="-1" text="..." parse-escape-sequences="true" display-tooltip-when-elided="true" name="Point" style="height: 296px; -unity-text-outline-color: rgba(0, 0, 0, 0); color: rgb(255, 255, 255); font-size: 80px; -unity-text-align: upper-right; right: auto;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Description" style="flex-grow: 1; height: 3px; width: 494px;">
+                <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Weapon1Description" style="height: 136px; align-items: auto; -unity-text-align: middle-center; font-size: 40px; color: rgb(255, 255, 255);" />
+                <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Weapon2Description" style="height: 92px; -unity-text-align: middle-center; font-size: 40px; color: rgb(255, 255, 255);" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Confirm" style="flex-grow: 1; justify-content: flex-end; align-self: center; height: 363px; width: 291px;">
+                <ui:Button text="OK" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ConfirmButton" style="width: 309px; justify-content: flex-start; height: 74px; font-size: 60px; background-color: rgba(188, 188, 188, 0); color: rgb(255, 255, 255); border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0);" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
