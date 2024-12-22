@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: -7362125494625259987}
   - component: {fileID: -2075609939001753199}
   - component: {fileID: 5964996670397079570}
-  - component: {fileID: 2691508283668402616}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -101,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletSpeed: 1000
-  damage: 10
+  damage: 1
 --- !u!50 &-2075609939001753199
 Rigidbody2D:
   serializedVersion: 4
@@ -174,16 +173,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.20534344, y: 0.30009174}
   m_EdgeRadius: 0
---- !u!114 &2691508283668402616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1507030928024073084}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a4c71848b6421d43b196ff3bce894cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10

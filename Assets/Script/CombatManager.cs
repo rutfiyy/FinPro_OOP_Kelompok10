@@ -1,52 +1,47 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CombatManager : MonoBehaviour
 {
-    public EnemySpawner[] enemySpawners;
+    [Header("Wave Configuration")]
+    [SerializeField] private List<Wave> waves; // List of all waves
+    [SerializeField] private float timeBetweenWaves = 5f;
 
-    public float timer = 0;
-    [SerializeField] private float waveInterval = 5f;
+    private int currentWaveIndex = -1; // Current wave index (-1 means no wave active)
 
-    public int waveNumber = 1;
-
-    public int totalEnemies = 0;
-    public int points = 0;
-
-    private void OnEnable()
+    public List<EnemySpawner> GetActiveSpawners()
     {
-        foreach (EnemySpawner spawner in enemySpawners)
+        if (currentWaveIndex >= 0 && currentWaveIndex < waves.Count)
         {
-            spawner.combatManager = this;
+            return waves[currentWaveIndex].enemySpawners;
         }
+        return new List<EnemySpawner>();
     }
 
-    private void FixedUpdate()
+    private void Start()
     {
-        if (totalEnemies == 0)
-            timer += Time.deltaTime;
-
-        if (timer >= waveInterval)
-        {
-            foreach (EnemySpawner spawner in enemySpawners)
-            {
-                if (spawner.spawnedEnemy.GetLevel() <= waveNumber && !spawner.isSpawning)
-                {
-                    spawner.ResetSpawnCount();
-
-                    totalEnemies += spawner.spawnCount;
-
-                    spawner.SpawnEnemy();
-                }
-            }
-
-            waveNumber++;
-            timer = 0;
-        }
+        StartCoroutine(WaveLoop());
     }
 
-    public void IncreaseKill()
+    private IEnumerator WaveLoop()
     {
-        totalEnemies--;
+        while (true)
+        {
+            currentWaveIndex = (currentWaveIndex + 1) % waves.Count;
+            Debug.Log($"Starting wave {currentWaveIndex}");
+
+            Wave currentWave = waves[currentWaveIndex];
+            currentWave.StartWave();
+
+            Debug.Log($"Wave {currentWave} active for {currentWave.waveDuration} seconds");
+            yield return new WaitForSeconds(currentWave.waveDuration);
+
+            currentWave.StopWave();
+            Debug.Log($"Wave {currentWaveIndex} stopped");
+
+            yield return new WaitForSeconds(timeBetweenWaves);
+            Debug.Log($"Time between waves: {timeBetweenWaves} seconds");
+        }
     }
 }

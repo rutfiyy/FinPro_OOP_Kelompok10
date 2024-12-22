@@ -4,7 +4,7 @@ using UnityEngine;
 public class Nuke : MonoBehaviour
 {
     [SerializeField] private int maxNuke = 3;
-    [SerializeField] private int nukeAmount;
+    [SerializeField] public int nukeAmount;
     [SerializeField] private float cooldown = 3f;
     private float timer;
     public CombatManager combatManager;
@@ -14,6 +14,7 @@ public class Nuke : MonoBehaviour
     {
         nukeAmount = maxNuke;
     }
+
     private void FixedUpdate()
     {
         timer += Time.deltaTime;
@@ -28,9 +29,10 @@ public class Nuke : MonoBehaviour
 
     private void ActivateNuke()
     {
-        foreach (EnemySpawner spawner in combatManager.enemySpawners)
+        // Loop through all enemy spawners
+        foreach (EnemySpawner spawner in combatManager.GetActiveSpawners())
         {
-            // Loop through all child objects of the spawner
+            // Destroy all child objects (enemies) in the spawner
             foreach (Transform child in spawner.transform)
             {
                 Enemy enemy = child.GetComponent<Enemy>();
@@ -45,7 +47,7 @@ public class Nuke : MonoBehaviour
             }
         }
 
-       
+        // Destroy all enemy bullets
         foreach (Transform child in enemyBulletPool.transform)
         {
             EnemyBullet enemyBullet = child.GetComponent<EnemyBullet>();
@@ -54,10 +56,9 @@ public class Nuke : MonoBehaviour
                 HitboxComponent hitbox = enemyBullet.GetComponent<HitboxComponent>();
                 if (hitbox != null)
                 {
-                    hitbox.Damage(1000); // Apply damage to destroy the enemyBullet
+                    hitbox.Damage(1000); // Apply damage to destroy the bullet
                 }
             }
         }
-        
     }
 }

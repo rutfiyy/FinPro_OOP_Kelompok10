@@ -8,13 +8,13 @@ using UnityEngine.Pool;
 public class Weapon : MonoBehaviour
 {
     [Header("Weapon Stats")]
-    [SerializeField] private float shootIntervalInSeconds = 3f;
+    [SerializeField] public float shootIntervalInSeconds = 3f;
 
 
     [Header("Bullets")]
     public Bullet bullet;
     [SerializeField] private Transform bulletSpawnPoint;
-    [SerializeField] private int bulletPerShot;
+    [SerializeField] public int bulletPerShot;
 
 
     [Header("Bullet Pool")]
@@ -26,14 +26,29 @@ public class Weapon : MonoBehaviour
 
 
     private float timer;
-
-
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip weaponSound;
+    [SerializeField] private float pitchVariation = 0.1f; // +/- variation in pitch
     public Transform parentTransform;
 
-
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     private void Awake()
     {
         Assert.IsNotNull(bulletSpawnPoint);
+
+        // Ensure parentTransform is assigned
+        if (parentTransform == null)
+        {
+            GameObject parentObject = GameObject.Find("BulletPool");
+            if (parentObject == null)
+            {
+                parentObject = new GameObject("BulletPool");
+            }
+            parentTransform = parentObject.transform;
+        }
 
         objectPool = new ObjectPool<Bullet>(CreateBullet, OnGetFromPool, OnReleaseToPool, OnDestroyPooledObject, collectionCheck, defaultCapacity, maxSize);
     }
@@ -41,6 +56,8 @@ public class Weapon : MonoBehaviour
 
     private void Shoot()
     {
+        audioSource.pitch = 1f + UnityEngine.Random.Range(-pitchVariation, pitchVariation); // Randomize pitch
+        audioSource.PlayOneShot(weaponSound);
         bulletPerShot = Math.Clamp(bulletPerShot, 1, 5);
 
         float totalSpread = (bulletPerShot - 1) * 10f; // Total spread in degrees

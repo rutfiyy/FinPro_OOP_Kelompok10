@@ -1,74 +1,35 @@
-using System.Collections;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [Header("Enemy Prefabs")]
-    public Enemy spawnedEnemy;
+    [Header("Spawner Settings")]
+    [SerializeField] private GameObject enemyPrefab; // The enemy to spawn
+    [SerializeField] private float spawnInterval = 2f; // Interval between spawns in seconds
 
-    [SerializeField] private int minimumKillsToIncreaseSpawnCount = 3;
-    public int totalKill = 0;
-    private int totalKillWave = 0;
+    private float timer;
 
-    [SerializeField] private float spawnInterval = 3f;
-
-    [Header("Spawned Enemies Counter")]
-    public int spawnCount = 0;
-    public int defaultSpawnCount = 1;
-    public int spawnCountMultiplier = 1;
-    public int multiplierIncreaseCount = 1;
-
-    public CombatManager combatManager;
-
-    public bool isSpawning = false;
-
-    private void Start()
+    private void Update()
     {
-        spawnCount = defaultSpawnCount;
-    }
+        timer += Time.deltaTime;
 
-    public void SpawnEnemy()
-    {
-        StartCoroutine(IESpawnEnemy());
-    }
-
-    IEnumerator IESpawnEnemy()
-    {
-        isSpawning = true;
-
-        while (spawnCount > 0)
+        if (timer >= spawnInterval)
         {
-            Enemy s = Instantiate(spawnedEnemy);
-
-            s.transform.parent = gameObject.transform;
-
-            s.enemyKilledEvent.AddListener(KillEnemy);
-            s.enemyKilledEvent.AddListener(combatManager.IncreaseKill);
-
-            spawnCount--;
-
-            yield return new WaitForSeconds(spawnInterval);
+            SpawnEnemy();
+            timer = 0f;
         }
-
-        isSpawning = false;
     }
 
-    public void ResetSpawnCount()
+    private void SpawnEnemy()
     {
-        if (totalKillWave >= minimumKillsToIncreaseSpawnCount)
+        if (enemyPrefab == null) return;
+
+        // Instantiate the prefab as a GameObject and get its Enemy component
+        GameObject enemyObject = Instantiate(enemyPrefab, transform.position, Quaternion.identity, transform);
+        Enemy enemy = enemyObject.GetComponent<Enemy>();
+
+        if (enemy == null)
         {
-            spawnCountMultiplier += multiplierIncreaseCount;
-            minimumKillsToIncreaseSpawnCount *= spawnCountMultiplier;
-            totalKillWave = 0;
+            Debug.LogError($"The prefab {enemyPrefab.name} does not have an Enemy component attached!");
         }
-
-        spawnCount = defaultSpawnCount * spawnCountMultiplier;
-    }
-
-    private void KillEnemy()
-    {
-        totalKill++;
-        totalKillWave++;
-        combatManager.points += spawnedEnemy.GetLevel();
     }
 }

@@ -15,10 +15,5 @@ public class AttackComponent : MonoBehaviour
 
             hitbox.Damage(damage);
         }
-
-        if (other.GetComponent<InvincibilityComponent>() != null)
-        {
-            other.GetComponent<InvincibilityComponent>().TriggerInvincibility();
-        }
     }
 }

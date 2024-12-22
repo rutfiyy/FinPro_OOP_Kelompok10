@@ -4,22 +4,43 @@ using UnityEngine;
 
 public class HealthComponent : MonoBehaviour
 {
+    public AudioSource audioSource;
+    public AudioClip hitSound;
+    public AudioClip deathSound;
     public int maxHealth;
 
     private int health;
 
+    InvincibilityComponent invincibilityComponent;
+
     void Awake()
     {
         health = maxHealth;
+        if (audioSource == null)
+        {
+            audioSource = GameObject.Find("GameAudio").GetComponent<AudioSource>();
+        }
+    }
+
+    void Start()
+    {
+        invincibilityComponent = GetComponent<InvincibilityComponent>();
     }
 
     public void Subtract(int amount)
     {
         health -= amount;
-
+        health = Mathf.Clamp(health, 0, maxHealth);
         if (health <= 0)
         {
+            if (audioSource != null)
+                audioSource.PlayOneShot(deathSound);
             Destroy(gameObject);
+        }else if(invincibilityComponent != null)
+        {
+            invincibilityComponent.TriggerInvincibility();
+        }else if (audioSource != null){
+            audioSource.PlayOneShot(hitSound);
         }
     }
 
