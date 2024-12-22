@@ -6,6 +6,9 @@ public class Nuke : MonoBehaviour
     [SerializeField] private int maxNuke = 3;
     [SerializeField] public int nukeAmount;
     [SerializeField] private float cooldown = 3f;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip nukeSound;
+    [SerializeField] AudioClip noNukeSound;
     private float timer;
     public CombatManager combatManager;
     public GameObject enemyBulletPool;
@@ -22,8 +25,12 @@ public class Nuke : MonoBehaviour
         if (timer >= cooldown && Input.GetMouseButtonDown(1) && nukeAmount > 0) // Right mouse button
         {
             timer = 0;
+            audioSource.PlayOneShot(nukeSound);
             ActivateNuke();
             nukeAmount--;
+        }else if (Input.GetMouseButtonDown(1))
+        {
+            audioSource.PlayOneShot(noNukeSound);
         }
     }
 

@@ -7,8 +7,10 @@ public class CombatManager : MonoBehaviour
     [Header("Wave Configuration")]
     [SerializeField] private List<Wave> waves; // List of all waves
     [SerializeField] private float timeBetweenWaves = 5f;
+    [SerializeField] private GameObject allyPrefab; // Ally unit prefab
 
     private int currentWaveIndex = -1; // Current wave index (-1 means no wave active)
+    private int waveCounter = 0; // Counter to track wave progress for ally spawning
 
     public List<EnemySpawner> GetActiveSpawners()
     {
@@ -28,20 +30,39 @@ public class CombatManager : MonoBehaviour
     {
         while (true)
         {
-            currentWaveIndex = (currentWaveIndex + 1) % waves.Count;
-            Debug.Log($"Starting wave {currentWaveIndex}");
-
+            // Randomly select the next wave
+            currentWaveIndex = Random.Range(0, waves.Count);
             Wave currentWave = waves[currentWaveIndex];
             currentWave.StartWave();
 
-            Debug.Log($"Wave {currentWave} active for {currentWave.waveDuration} seconds");
+            // Increment the wave counter
+            waveCounter++;
+
+            // Spawn an ally every 2 waves
+            if (waveCounter % 2 == 0)
+            {
+                SpawnAlly();
+            }
+
+            // Wait for the duration of the current wave
             yield return new WaitForSeconds(currentWave.waveDuration);
 
             currentWave.StopWave();
-            Debug.Log($"Wave {currentWaveIndex} stopped");
 
+            // Wait for the interval between waves
             yield return new WaitForSeconds(timeBetweenWaves);
-            Debug.Log($"Time between waves: {timeBetweenWaves} seconds");
+        }
+    }
+
+    private void SpawnAlly()
+    {
+        if (allyPrefab != null)
+        {
+            Instantiate(allyPrefab, transform.position, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogWarning("Ally Prefab or Spawn Point is not assigned in the Combat Manager.");
         }
     }
 }
